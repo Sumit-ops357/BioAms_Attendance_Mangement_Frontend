@@ -10,13 +10,13 @@ export default function RegisterEmployee() {
     name: "",
     email: "",
     password: "",
-    role: "admin"
+    role: ""
   });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  if (!admin.isAuthenticated || admin.role !== "admin") {
+  if (!admin?.isAuthenticated || admin.role !== "admin") {
     return <Navigate to="/" replace />;
   }
 
@@ -47,7 +47,7 @@ export default function RegisterEmployee() {
         return;
       }
       setSuccess(true);
-      setForm({ emp_id: "", name: "", email: "", password: "", role: "admin" });
+      setForm({ emp_id: "", name: "", email: "", password: "", role: "" });
       setLoading(false);
     } catch (err) {
       setError("Network error. Please try again.");
@@ -57,7 +57,7 @@ export default function RegisterEmployee() {
   }
 
   return (
-    <div className="container py-5" style={{maxWidth: 550}}>
+    <div className="container py-5" style={{ maxWidth: 550 }}>
       <div className="bg-white rounded shadow p-4">
         <h2 className="fw-bold text-center mb-4">Register New Employee</h2>
         <form onSubmit={handleSubmit}>
@@ -119,10 +119,13 @@ export default function RegisterEmployee() {
               value={form.role}
               onChange={handleChange}
               required
-              disabled
             >
+              <option value="">Select a Role</option>
+              <option value="Software Engineer">Software Engineer</option>
+              <option value="ML Engineer">ML Engineer</option>
+              <option value="Cloud Engineer">Cloud Engineer</option>
+              <option value="Data Analyst">Data Analyst</option>
               <option value="admin">Admin</option>
-              {/* <option value="employee">Employee</option> */}
             </select>
           </div>
           {success && (<div className="alert alert-success">Employee registered successfully!</div>)}
